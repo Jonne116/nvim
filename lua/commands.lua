@@ -1,5 +1,3 @@
--- Define commands
-
 -- Remove trailing whitespaces
 -- (if a file requires trailing spaces, exclude its type using the regex)
 vim.cmd [[autocmd BufWritePre * %s/\s\+$//e ]]
@@ -16,3 +14,4 @@ vim.cmd('command! MakeCTags !ctags -R --exclude=@.ctagsignore .')
 
 -- Eslint fix on save
 vim.cmd [[autocmd BufWritePre *.tsx,*.ts,*.jsx,*.js EslintFixAll]]
+

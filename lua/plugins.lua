@@ -27,13 +27,29 @@ return require('packer').startup(function(use)
   use({'wbthomason/packer.nvim', opt = true})
 
   -- Formatting
-  use 'tpope/vim-commentary'
   use 'junegunn/vim-easy-align'
+  use({ "terrortylor/nvim-comment",
+    config = function () require('plugins.comment') end
+  })
+
+  -- use({'ThePrimeagen/harpoon',
+  --   config = function () require('plugins.harpoon') end
+  --   })
 
   -- Themes
   use({ 'folke/tokyonight.nvim',
       config = function() require('themes') end
   })
+  use({ 'navarasu/onedark.nvim',
+      config = function() require('themes') end
+  })
+  --
+  -- Indent lines
+  use({"lukas-reineke/indent-blankline.nvim",
+        config = function ()
+            require('plugins.blankline')
+        end
+    })
 
   -- git commands
   use 'tpope/vim-fugitive'
@@ -44,19 +60,14 @@ return require('packer').startup(function(use)
     requires = {'nvim-lua/plenary.nvim'},
     config = function() require('plugins.gitsigns') end
   })
-
+    use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
   -- LSP server
   use({
     'neovim/nvim-lspconfig',
     config = function() require('plugins.lspconfig') end
   })
-  use 'jghauser/follow-md-links.nvim'
 
   -- Debugging
-  use({
-    "mfussenegger/nvim-dap",
-    config = function() require('plugins.lspconfig') end
-  })
   use "mfussenegger/nvim-jdtls"
   use {
     "rcarriga/nvim-dap-ui",
@@ -82,13 +93,6 @@ return require('packer').startup(function(use)
     config = function() require('plugins.cmp') end,
   })
 
-  -- bufferline
-  use({
-    'akinsho/bufferline.nvim',
-    requires = 'kyazdani42/nvim-web-devicons',
-    config = function() require('plugins.bufferline') end,
-    event = 'BufWinEnter',
-  })
 
   -- statusline
   use({

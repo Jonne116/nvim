@@ -15,11 +15,8 @@ vim.g.maplocalleader = " "
 -- Run omnifunc, mostly used for autocomplete
 inoremap("<C-SPACE>", "<C-x><C-o>")
 
--- Save with Ctrl + S
-nnoremap("<C-s>", ":w<CR>")
-
 -- Close buffer
-nnoremap("<C-c>", ":q<CR>")
+nnoremap("<C-c>", ":bd<CR>")
 
 -- Move around windows
 nnoremap("<C-h>", "<C-w>h")
@@ -27,9 +24,9 @@ nnoremap("<C-j>", "<C-w>j")
 nnoremap("<C-k>", "<C-w>k")
 nnoremap("<C-l>", "<C-w>l")
 
--- Switch buffers (needs nvim-bufferline)
-nnoremap("<TAB>", ":BufferLineCycleNext<CR>")
-nnoremap("<S-TAB>", ":BufferLineCyclePrev<CR>")
+-- Movement center
+nnoremap("<C-u>", "<C-u>zz")
+nnoremap("<C-d>", "<C-d>zz")
 
 -- Splits
 nnoremap("<leader>ws", ":split<CR>")
@@ -51,16 +48,12 @@ nnoremap("<A-w>", ":bd<CR>")
 nnoremap("Y", "y$")
 
 -- Copy to system clippboard
-nnoremap("<leader>y", '"*yy')
-vnoremap("<leader>y", '"*yy')
+nnoremap("<leader>y", '"+y')
+vnoremap("<leader>y", '"+y')
 
 -- Paste from system clippboard
 nnoremap("<leader>p", '"*p')
 vnoremap("<leader>p", '"*p')
-
--- Clear highlight search
-nnoremap("<leader>nh", ":nohlsearch<CR>")
-vnoremap("<leader>nh", ":nohlsearch<CR>")
 
 -- Local list
 nnoremap("<leader>lo", ":lopen<CR>")
@@ -96,8 +89,8 @@ nnoremap("<leader>fg", "<Cmd>Telescope live_grep<CR>")
 
 -- File explorer
 nnoremap("<leader>z", "<Cmd>NvimTreeToggle<CR>")  -- NvimTree
--- nnoremap("<leader>e", "<Cmd>RnvimrToggle<CR>")
 
+-- Debugging
 nnoremap("<leader>c", "<Cmd>lua require'dap'.continue()<CR>")
 nnoremap("<leader>so", "<<Cmd>lua require'dap'.step_over()<CR>")
 nnoremap("<leader>si", "<Cmd>lua require'dap'.step_into()<CR>")
@@ -115,12 +108,6 @@ nnoremap("crc", "<Cmd>lua require('jdtls').extract_constant()<CR>")
 vnoremap("crc", "<Esc><Cmd>lua require('jdtls').extract_constant(true)<CR>")
 vnoremap("crm", "<Esc><Cmd>lua require('jdtls').extract_method(true)<CR>")
 
-
--- If using nvim-dap
--- This requires java-debug and vscode-java-test bundles, see install steps in this README further below.
 nnoremap("<leader>df", "<Cmd>lua require'jdtls'.test_class()<CR>")
 nnoremap("<leader>dn", "<Cmd>lua require'jdtls'.test_nearest_method()<CR>")
 nnoremap("<leader>ss", "<Cmd>lua require'jdtls'.open_jdt_link()<CR>")
--- EasyAlign
--- xmap("ga", "<cmd>EasyAlign")
--- nmap("ga", "<cmd>EasyAlign")
