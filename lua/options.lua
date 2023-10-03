@@ -3,13 +3,13 @@ vim.o.conceallevel       = 0                             -- Don't hide quotes in
 vim.o.cmdheight          = 1
 vim.o.pumheight          = 10
 vim.o.showmode           = false
-vim.o.showtabline        = 2                             -- Always show tabline
+vim.o.showtabline        = 0                             -- Always show tabline
 vim.o.title              = true
 vim.o.termguicolors      = true                          -- Use true colors, required for some plugins
 vim.wo.number            = true
 vim.wo.relativenumber    = true
 vim.wo.signcolumn        = 'yes'
-vim.wo.cursorline        = true
+vim.wo.cursorline        = false
 vim.o.syntax            = true
 -- Behaviour
 vim.o.hlsearch           = false
