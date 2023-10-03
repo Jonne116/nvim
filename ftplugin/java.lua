@@ -2,7 +2,7 @@
 -- If you started neovim within `~/dev/xy/project-1` this would resolve to `project-1`
 local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
 
-local workspace_dir = '/home/jonnelehtonen/.jdtlsworkspaces/' .. project_name
+local workspace_dir = '/home/jonne/.jdtlsworkspaces/' .. project_name
 --                                               ^^
 --                                               string concattenation in Lua
 
@@ -17,7 +17,7 @@ local config = {
 
       '-Declipse.application=org.eclipse.jdt.ls.core.id1',
       '-Dosgi.bundles.defaultStartLevel=4',
-      '-javaagent:/home/jonnelehtonen/Misc/lombok-1.18.22.jar',
+      '-javaagent:/home/jonne/lsp/jdtls/lombok.jar',
       '-Declipse.product=org.eclipse.jdt.ls.core.product',
       '-Dlog.protocol=true',
       '-Dlog.level=ALL',
@@ -27,14 +27,14 @@ local config = {
       '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
 
       -- 💀
-      '-jar', '/home/jonnelehtonen/Misc/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar',
+      '-jar', '/home/jonne/lsp/jdtls/plugins/org.eclipse.equinox.launcher_1.6.500.v20230717-2134.jar',
            -- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                                       ^^^^^^^^^^^^^^
            -- Must point to the                                                     Change this to
            -- eclipse.jdt.ls installation                                           the actual version
 
 
       -- 💀
-      '-configuration', '/home/jonnelehtonen/Misc/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/config_linux',
+      '-configuration', '/home/jonne/lsp/jdtls/config_linux',
                       -- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^        ^^^^^^
                       -- Must point to the                      Change to one of `linux`, `win` or `mac`
                       -- eclipse.jdt.ls installation            Depending on your system.
@@ -72,11 +72,11 @@ local config = {
   }
 
   local bundles = {
-    vim.fn.glob("/home/jonnelehtonen/Misc/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar"),
+    vim.fn.glob("/home/jonne/lsp/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar"),
   };
 
   -- This is the new part
-  vim.list_extend(bundles, vim.split(vim.fn.glob("/home/jonnelehtonen/Misc/vscode-java-test/server/*.jar"), "\n"))
+  vim.list_extend(bundles, vim.split(vim.fn.glob("/home/jonne/lsp/vscode-java-test/server/*.jar"), "\n"))
   config['init_options'] = {
     bundles = bundles;
   }

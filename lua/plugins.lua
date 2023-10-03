@@ -32,15 +32,13 @@ return require('packer').startup(function(use)
     config = function () require('plugins.comment') end
   })
 
-  -- use({'ThePrimeagen/harpoon',
-  --   config = function () require('plugins.harpoon') end
-  --   })
+  use'ThePrimeagen/harpoon'
 
   -- Themes
-  use({ 'folke/tokyonight.nvim',
+  use({ 'Mofiqul/vscode.nvim',
       config = function() require('themes') end
   })
-  use({ 'navarasu/onedark.nvim',
+  use({ 'folke/tokyonight.nvim',
       config = function() require('themes') end
   })
   --
@@ -64,8 +62,18 @@ return require('packer').startup(function(use)
   -- LSP server
   use({
     'neovim/nvim-lspconfig',
-    config = function() require('plugins.lspconfig') end
-  })
+    config = function() require('plugins.lspconfig') end,
+    requires = {
+        'neovim/nvim-lspconfig',
+        'hrsh7th/cmp-nvim-lsp',
+        'hrsh7th/cmp-buffer',
+        'hrsh7th/cmp-path',
+        'hrsh7th/cmp-cmdline',
+        'hrsh7th/nvim-cmp',
+        'L3MON4D3/LuaSnip',
+        'saadparwaiz1/cmp_luasnip'
+    }
+})
 
   -- Debugging
   use "mfussenegger/nvim-jdtls"
@@ -76,23 +84,6 @@ return require('packer').startup(function(use)
   }
   use 'theHamsta/nvim-dap-virtual-text'
   use 'nvim-telescope/telescope-dap.nvim'
-
-  -- Autocomplete
-  use "L3MON4D3/LuaSnip"  -- Snippet engine
-
-  use({
-    "hrsh7th/nvim-cmp",
-    -- Sources for nvim-cmp
-    requires = {
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-path",
-      "hrsh7th/cmp-nvim-lua",
-      "saadparwaiz1/cmp_luasnip",
-    },
-    config = function() require('plugins.cmp') end,
-  })
-
 
   -- statusline
   use({
