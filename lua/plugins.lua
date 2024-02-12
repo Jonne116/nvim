@@ -38,18 +38,15 @@ return require('packer').startup(function(use)
   use({ 'Mofiqul/vscode.nvim',
       config = function() require('themes') end
   })
-  use({ 'folke/tokyonight.nvim',
-      config = function() require('themes') end
-  })
   --
   -- Indent lines
-  use({"lukas-reineke/indent-blankline.nvim",
-        config = function ()
-            require('plugins.blankline')
-        end
-    })
+  ---use({"lukas-reineke/indent-blankline.nvim",
+ --       config = function ()
+     --       require('plugins.blankline')
+       -- end
+   -- })
 
-  -- git commands
+  --git commands
   use 'tpope/vim-fugitive'
   -- use 'airblade/vim-gitgutter'  -- The standard one I use
   -- Trying out gitsigns

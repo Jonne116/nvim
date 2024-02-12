@@ -9,3 +9,4 @@ require('nvim-tree').setup({
     enable = true
   },
 })
+

@@ -15,6 +15,9 @@ vim.g.maplocalleader = " "
 -- Close buffer
 nnoremap("<C-c>", ":bd<CR>", "Close Buffer")
 
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+
 -- Move around windows
 nnoremap("<C-h>", "<C-w>h", "Move to left window")
 nnoremap("<C-j>", "<C-w>j", "Move to upper window")

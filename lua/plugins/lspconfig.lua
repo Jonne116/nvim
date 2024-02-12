@@ -94,6 +94,10 @@ cmp.setup.cmdline(':', {
 })
 
 lspconfig.pyright.setup {}
+lspconfig.angularls.setup{
+on_attach = on_attach,
+capabilities = capabilities,
+}
 lspconfig.tsserver.setup {}
 lspconfig.rust_analyzer.setup {
   -- Server-specific settings. See `:help lspconfig-setup`
@@ -127,8 +131,15 @@ lspconfig.gopls.setup{
 }
 lspconfig.sqlls.setup{
 }
-lspconfig.html.setup{}
-lspconfig.cssls.setup{}
+lspconfig.clangd.setup{}
+lspconfig.html.setup{
+    on_attach = on_attach,
+    capabilities = capabilities,
+}
+lspconfig.cssls.setup{
+    on_attach = on_attach,
+    capabilities = capabilities,
+}
 lspconfig.dockerls.setup{}
 lspconfig.yamlls.setup{}
 lspconfig.gradle_ls.setup{
@@ -174,7 +185,6 @@ lspconfig.groovyls.setup{
 lspconfig.jsonls.setup{}
 lspconfig.marksman.setup{}
 lspconfig.eslint.setup{}
-
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
