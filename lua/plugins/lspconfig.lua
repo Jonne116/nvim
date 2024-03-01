@@ -93,19 +93,28 @@ cmp.setup.cmdline(':', {
     })
 })
 
-lspconfig.pyright.setup {}
+lspconfig.pyright.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+}
 lspconfig.angularls.setup{
 on_attach = on_attach,
 capabilities = capabilities,
 }
-lspconfig.tsserver.setup {}
+lspconfig.tsserver.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+}
 lspconfig.rust_analyzer.setup {
   -- Server-specific settings. See `:help lspconfig-setup`
   settings = {
     ['rust-analyzer'] = {},
   },
 }
-lspconfig.ansiblels.setup{}
+lspconfig.ansiblels.setup{
+    on_attach = on_attach,
+    capabilities = capabilities,
+}
 lspconfig.gopls.setup{
     on_attach = on_attach,
      settings = {
@@ -130,8 +139,13 @@ lspconfig.gopls.setup{
     capabilities = capabilities
 }
 lspconfig.sqlls.setup{
+    on_attach = on_attach,
+    capabilities = capabilities,
 }
-lspconfig.clangd.setup{}
+lspconfig.clangd.setup{
+    on_attach = on_attach,
+    capabilities = capabilities,
+}
 lspconfig.html.setup{
     on_attach = on_attach,
     capabilities = capabilities,
@@ -140,15 +154,28 @@ lspconfig.cssls.setup{
     on_attach = on_attach,
     capabilities = capabilities,
 }
-lspconfig.dockerls.setup{}
-lspconfig.yamlls.setup{}
+lspconfig.dockerls.setup{
+    on_attach = on_attach,
+    capabilities = capabilities,
+}
+lspconfig.yamlls.setup{
+    on_attach = on_attach,
+    capabilities = capabilities,
+}
 lspconfig.gradle_ls.setup{
     cmd = {"/home/jonne/lsp/vscode-gradle/gradle-language-server/build/install/gradle-language-server/bin/gradle-language-server"},
+    on_attach = on_attach,
+    capabilities = capabilities,
 }
 lspconfig.lemminx.setup{
     cmd = {"lemminx-linux"},
+    on_attach = on_attach,
+    capabilities = capabilities,
 }
-lspconfig.bashls.setup{}
+lspconfig.bashls.setup{
+    on_attach = on_attach,
+    capabilities = capabilities,
+}
 lspconfig.lua_ls.setup{
     on_init = function(client)
     local path = client.workspace_folders[1].name
@@ -185,10 +212,10 @@ lspconfig.groovyls.setup{
 lspconfig.jsonls.setup{}
 lspconfig.marksman.setup{}
 lspconfig.eslint.setup{}
+
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
 vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
-
