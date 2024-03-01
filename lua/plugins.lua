@@ -33,7 +33,12 @@ return require('packer').startup(function(use)
   })
 
   use'ThePrimeagen/harpoon'
-
+use({ 'folke/todo-comments.nvim',
+requires = {'nvim-lua/plenary.nvim'},
+config = function ()
+  require('todo-comments').setup({})
+end
+})
   -- Themes
   use({ 'Mofiqul/vscode.nvim',
       config = function() require('themes') end

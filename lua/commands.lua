@@ -14,7 +14,6 @@ vim.cmd('command! MakeCTags !ctags -R --exclude=@.ctagsignore .')
 
 -- Eslint fix on save
 vim.cmd [[autocmd BufWritePre *.tsx,*.ts,*.jsx,*.js EslintFixAll]]
-
 vim.api.nvim_create_autocmd({"BufWritePost"}, {
   pattern = "*.go",
   callback = function()
