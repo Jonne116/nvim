@@ -45,6 +45,9 @@ require('lualine').setup({
         color = {fg = '#ffffff', gui = 'bold'},
         separator = "",
       },
+      {'filename',
+        path = 2
+    },
       {
         'diagnostics',
         sources = {'nvim_diagnostic'},
