@@ -4,7 +4,7 @@ local Utils = require('utils')
 local nnoremap = Utils.nnoremap
 local vnoremap = Utils.vnoremap
 -- local xnoremap = Utils.xnoremap
-local inoremap = Utils.inoremap
+-- local inoremap = Utils.inoremap
 -- local tnoremap = Utils.tnoremap
 -- local nmap = Utils.nmap
 -- local xmap = Utils.xmap
@@ -85,8 +85,9 @@ nnoremap("<leader><A-d>", "<Cmd>lua vim.diagnostic.setqflist()<CR>", "Open all p
 
 -- Telescope
 nnoremap("<leader>ff", "<Cmd>Telescope find_files<CR>", "Telescope find in files")
+nnoremap("<leader>fr", "<Cmd>Telescope live_grep<CR>", "Telescope find in files")
 nnoremap("<leader>fb", "<Cmd>Telescope buffers<CR>", "Telescope find in buffers")
-nnoremap("<leader>fg", "<Cmd>Telescope live_grep<CR>", "Telescope live grep")
+nnoremap("<leader>fg", "<Cmd>Telescope git_files<CR>", "Telescope live grep")
 
 nnoremap("<leader>hm", "<Cmd>lua require('harpoon.mark').add_file()<CR>", "Harpoon add file")
 nnoremap("<leader>j", "<Cmd>lua require('harpoon.ui').nav_next()<CR>", "Harpoon next file")

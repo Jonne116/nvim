@@ -43,24 +43,16 @@ end
   use({ 'Mofiqul/vscode.nvim',
       config = function() require('themes') end
   })
-  --
-  -- Indent lines
-  ---use({"lukas-reineke/indent-blankline.nvim",
- --       config = function ()
-     --       require('plugins.blankline')
-       -- end
-   -- })
 
   --git commands
   use 'tpope/vim-fugitive'
-  -- use 'airblade/vim-gitgutter'  -- The standard one I use
-  -- Trying out gitsigns
   use ({
     'lewis6991/gitsigns.nvim',
     requires = {'nvim-lua/plenary.nvim'},
     config = function() require('plugins.gitsigns') end
   })
     use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
+
   -- LSP server
   use({
     'neovim/nvim-lspconfig',
@@ -115,15 +107,6 @@ end
     config = function() require('plugins.telescope') end,
   })
   use({'nvim-telescope/telescope-fzf-native.nvim', run ='make'})
-
-  -- Startify
-  use({
-    'mhinz/vim-startify',
-    config = function()
-      local path = vim.fn.stdpath('config')..'/lua/plugins/startify.vim'
-      vim.cmd('source '..path)
-    end
-  })
 
   if packer_bootstrap then
     require('packer').sync()
