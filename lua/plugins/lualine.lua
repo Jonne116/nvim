@@ -46,7 +46,7 @@ require('lualine').setup({
         separator = "",
       },
       {'filename',
-        path = 2
+        path = 1
     },
       {
         'diagnostics',
