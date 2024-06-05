@@ -1,14 +1,9 @@
-local Utils = require('utils')
+local Utils = require("utils")
 
--- local exprnnoremap = Utils.exprnnoremap
 local nnoremap = Utils.nnoremap
 local vnoremap = Utils.vnoremap
--- local xnoremap = Utils.xnoremap
-local inoremap = Utils.inoremap
--- local tnoremap = Utils.tnoremap
--- local nmap = Utils.nmap
--- local xmap = Utils.xmap
-vim.api.nvim_set_keymap('', '<Space>', '<Nop>', { noremap = true, silent = true })
+
+vim.api.nvim_set_keymap("", "<Space>", "<Nop>", { noremap = true, silent = true })
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
@@ -16,8 +11,8 @@ vim.g.maplocalleader = " "
 nnoremap("<C-c>", ":bd<CR>", "Close Buffer")
 
 -- Move selected
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+vnoremap("J", ":m '>+1<CR>gv=gv", "Move selected down")
+vnoremap("K", ":m '<-2<CR>gv=gv", "Move selected Up")
 
 -- Move around windows
 nnoremap("<C-h>", "<C-w>h", "Move to left window")
@@ -88,30 +83,37 @@ nnoremap("<leader>ff", "<Cmd>Telescope find_files<CR>", "Telescope find in files
 nnoremap("<leader>fb", "<Cmd>Telescope buffers<CR>", "Telescope find in buffers")
 nnoremap("<leader>fg", "<Cmd>Telescope live_grep<CR>", "Telescope live grep")
 
+-- Harpoon
 nnoremap("<leader>hm", "<Cmd>lua require('harpoon.mark').add_file()<CR>", "Harpoon add file")
 nnoremap("<leader>j", "<Cmd>lua require('harpoon.ui').nav_next()<CR>", "Harpoon next file")
 nnoremap("<leader>k", "<Cmd>lua require('harpoon.ui').nav_prev()<CR>", "Harpoon previous file")
+
 -- File explorer
 nnoremap("<leader>z", "<Cmd>NvimTreeToggle<CR>", "Open file explorer tree")  -- NvimTree
 
+-- Diagnostic
+vim.keymap.set("n", "<space>e", vim.diagnostic.open_float)
+vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
+vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
+vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist)
+
 -- Debugging
-nnoremap("<leader>c", "<Cmd>lua require'dap'.continue()<CR>")
-nnoremap("<leader>so", "<<Cmd>lua require'dap'.step_over()<CR>")
-nnoremap("<leader>si", "<Cmd>lua require'dap'.step_into()<CR>")
-nnoremap("<leader>se", "<Cmd>lua require'dap'.step_out()<CR>")
-nnoremap("<Leader>b", "<Cmd>lua require'dap'.toggle_breakpoint()<CR>")
-nnoremap("<leader>B", "<Cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>")
-nnoremap("<leader>bn", "<Cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>")
-nnoremap("<leader>ro", "<Cmd>lua require'dap'.repl.open()<CR>")
-nnoremap("<leader>rl", "<Cmd>lua require'dap'.run_last()<CR>")
+nnoremap("<leader>c", "<Cmd>lua require'dap'.continue()<CR>", "Dap continue")
+nnoremap("<leader>so", "<<Cmd>lua require'dap'.step_over()<CR>", "Dap step over")
+nnoremap("<leader>si", "<Cmd>lua require'dap'.step_into()<CR>", "Dap step into")
+nnoremap("<leader>se", "<Cmd>lua require'dap'.step_out()<CR>", "Dap step out")
+nnoremap("<Leader>b", "<Cmd>lua require'dap'.toggle_breakpoint()<CR>", "Dap toggle breakpoint")
+nnoremap("<leader>B", "<Cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>", "Dap set breakpoint with condition")
+nnoremap("<leader>bn", "<Cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>", "Dap set breakpoint with log")
+nnoremap("<leader>ro", "<Cmd>lua require'dap'.repl.open()<CR>", "Dap open REPL / Debug-console")
+nnoremap("<leader>rl", "<Cmd>lua require'dap'.run_last()<CR>", "Dap run last")
 
-nnoremap("<A-o>", "<Cmd>lua require'jdtls'.organize_imports()<CR>")
-nnoremap("crv", "<Cmd>lua require('jdtls').extract_variable()<CR>")
-vnoremap("crv", "<Esc><Cmd>lua require('jdtls').extract_variable(true)<CR>")
-nnoremap("crc", "<Cmd>lua require('jdtls').extract_constant()<CR>")
-vnoremap("crc", "<Esc><Cmd>lua require('jdtls').extract_constant(true)<CR>")
-vnoremap("crm", "<Esc><Cmd>lua require('jdtls').extract_method(true)<CR>")
-
-nnoremap("<leader>df", "<Cmd>lua require'jdtls'.test_class()<CR>")
-nnoremap("<leader>dn", "<Cmd>lua require'jdtls'.test_nearest_method()<CR>")
-nnoremap("<leader>ss", "<Cmd>lua require'jdtls'.open_jdt_link()<CR>")
+-- JDTLS
+nnoremap("<A-o>", "<Cmd>lua require'jdtls'.organize_imports()<CR>", "Java organize imports")
+nnoremap("crv", "<Cmd>lua require('jdtls').extract_variable()<CR>", "Java extract variable")
+vnoremap("crv", "<Esc><Cmd>lua require('jdtls').extract_variable(true)<CR>", "Java extract variable (visual)")
+nnoremap("crc", "<Cmd>lua require('jdtls').extract_constant()<CR>", "Java extract constant")
+vnoremap("crc", "<Esc><Cmd>lua require('jdtls').extract_constant(true)<CR>", "Java extract constant (visual)")
+vnoremap("crm", "<Esc><Cmd>lua require('jdtls').extract_method(true)<CR>", "Java extract method (visual)")
+nnoremap("<leader>df", "<Cmd>lua require'jdtls'.test_class()<CR>", "Java test class")
+nnoremap("<leader>dn", "<Cmd>lua require'jdtls'.test_nearest_method()<CR>", "Java test method")

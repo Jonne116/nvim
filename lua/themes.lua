@@ -1,29 +1,36 @@
-vim.o.background = 'dark'
+vim.o.background = "dark"
 
-local c = require('vscode.colors').get_colors()
-require('vscode').setup({
-    -- Alternatively set style in setup
-    -- style = 'light'
-
-    -- Enable transparent background
-    transparent = true,
-
-    -- Enable italic comment
+local c = require("vscode.colors").get_colors()
+require("vscode").setup({
+    transparent = false,
     italic_comments = true,
-
-    -- Disable nvim-tree background color
-    disable_nvimtree_bg = true,
-
-    -- Override colors (see ./lua/vscode/colors.lua)
+    disable_nvimtree_bg = false,
     color_overrides = {
-        vscLineNumber = '#FFFFFF',
+        vscLineNumber = "#FFFFFF",
     },
-
-    -- Override highlight groups (see ./lua/vscode/theme.lua)
     group_overrides = {
-        -- this supports the same val table as vim.api.nvim_set_hl
-        -- use colors from this colorscheme by requiring vscode.colors!
         Cursor = { fg=c.vscDarkBlue, bg=c.vscLightGreen, bold=true },
     }
 })
-require('vscode').load()
+
+require("tokyonight").setup({
+    style = "storm",
+    light_style = "day",
+    transparent = false,
+    terminal_colors = true,
+    styles = {
+        comments = { italic = true },
+        keywords = { italic = true },
+        functions = {},
+        variables = {},
+        sidebars = "dark",
+        floats = "dark",
+    },
+    sidebars = { "qf", "help" },
+    day_brightness = 0.3,
+    hide_inactive_statusline = false,
+    dim_inactive = false,
+    lualine_bold = false,
+})
+
+require("tokyonight").load()
