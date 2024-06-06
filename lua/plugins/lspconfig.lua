@@ -4,7 +4,7 @@ local cmp = require"cmp"
 cmp.setup({
     snippet = {
         expand = function(args)
-            require("luasnip").lsp_expand(args.body) -- For `luasnip` users.
+            require("luasnip").lsp_expand(args.body)
         end,
     },
     mapping = cmp.mapping.preset.insert({
@@ -59,12 +59,44 @@ local on_attach = function(_, bufnr)
     vim.keymap.set("n", "<space>f", function() vim.lsp.buf.format { async = true } end, bufopts)
     vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
 end
+
+local lspkind = require('lspkind')
+cmp.setup {
+  formatting = {
+    format = lspkind.cmp_format({
+      mode = 'symbol_text',
+      maxwidth = 50,
+       menu = ({
+      buffer = "[Buffer]",
+      nvim_lsp = "[LSP]",
+      luasnip = "[LuaSnip]",
+      nvim_lua = "[Lua]",
+      latex_symbols = "[Latex]",
+    }),
+
+      ellipsis_char = '...',
+      show_labelDetails = true,
+      before = function (entry, vim_item)
+        return vim_item
+      end
+    })
+  }
+}
+
 cmp.setup.filetype("gitcommit", {
     sources = cmp.config.sources({
         { name = "git" },
     },
     {
         { name = "buffer" },
+    })
+})
+
+cmp.setup.filetype("sql", {
+    sources = cmp.config.sources({
+        { name = "vim-dadbod-complete" },
+        { name = "buffer" },
+        { name = "nvim_lsp"},
     })
 })
 
@@ -184,7 +216,7 @@ lspconfig.bashls.setup{
 lspconfig.lua_ls.setup{
     on_init = function(client)
         local path = client.workspace_folders[1].name
-        if not vim.loop.fs_stat(path.."/.luarc.json") and not vim.loop.fs_stat(path.."/.luarc.jsonc") then
+        if not vim.uv.fs_stat(path.."/.luarc.json") and not vim.uv.fs_stat(path.."/.luarc.jsonc") then
             client.config.settings = vim.tbl_deep_extend("force", client.config.settings, {
                 Lua = {
                     runtime = {
@@ -193,7 +225,7 @@ lspconfig.lua_ls.setup{
                     workspace = {
                         checkThirdParty = false,
                         library = {
-                            vim.env.VIMRUNTIME
+                            vim.env.VIMRUNTIME,
                         }
                     }
                 }

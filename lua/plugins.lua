@@ -1,64 +1,79 @@
-local fn = vim.fn
-local cmd = vim.cmd
-
-local install_path = fn.stdpath("data").."/site/pack/packer/start/packer.nvim"
-local packer_bootstrap
-if fn.empty(fn.glob(install_path)) > 0 then
-  packer_bootstrap = fn.system({"git", "clone","https://github.com/wbthomason/packer.nvim", install_path})
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
 end
+vim.opt.rtp:prepend(lazypath)
 
-cmd([[
-    augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerCompile
-    augroup end
-]])
-
-cmd([[packadd packer.nvim]])
-
-return require("packer").startup(function(use)
-    use({ "wbthomason/packer.nvim",
-        opt = true,
-    })
+require("lazy").setup({
 
     -- Formatting
-    use "junegunn/vim-easy-align"
-    use({ "terrortylor/nvim-comment",
+    {
+        "junegunn/vim-easy-align",
+    },
+    {
+        "terrortylor/nvim-comment",
         config = function () require("plugins.comment") end
-    })
-    use({ "folke/todo-comments.nvim",
-        requires = { "nvim-lua/plenary.nvim" },
+    },
+    {
+        "folke/todo-comments.nvim",
+        dependencies = { "nvim-lua/plenary.nvim" },
         config = function ()
-        require("todo-comments").setup({})
-    end
-    })
+            require("todo-comments").setup({})
+        end
+    },
 
     -- Navigation
-    use "ThePrimeagen/harpoon"
+    {
+        "ThePrimeagen/harpoon"
+    },
 
 
     -- Themes
-    use({ "Mofiqul/vscode.nvim",
+    {
+        "Mofiqul/vscode.nvim",
         config = function() require("themes") end
-    })
-    use({ "folke/tokyonight.nvim",
-        config = function () require("themes") end
-    })
+    },
 
     -- Git commands
-    use "tpope/vim-fugitive"
-    use({ "lewis6991/gitsigns.nvim",
-        requires = { "nvim-lua/plenary.nvim" },
+    {
+        "tpope/vim-fugitive"
+    },
+    {
+        "lewis6991/gitsigns.nvim",
+        dependencies = { "nvim-lua/plenary.nvim" },
         config = function() require("plugins.gitsigns") end
-    })
-    use({ "sindrets/diffview.nvim",
-        requires = { "nvim-lua/plenary.nvim" },
-    })
+    },
+    {
+        "sindrets/diffview.nvim",
+        dependencies = { "nvim-lua/plenary.nvim" },
+    },
 
-    -- LSP server
-    use({ "neovim/nvim-lspconfig",
+    -- Neovim development
+    {
+        "folke/lazydev.nvim",
+        ft = "lua", -- only load on lua files
+        opts = {
+            library = {
+                -- See the configuration section for more details
+                -- Load luvit types when the `vim.uv` word is found
+                { path = "luvit-meta/library", words = { "vim%.uv" } },
+            },
+        },
+    },
+    { "Bilal2453/luvit-meta", lazy = true },
+
+    -- LSP
+    {
+        "neovim/nvim-lspconfig",
         config = function() require("plugins.lspconfig") end,
-        requires = {
+        dependencies = {
             "neovim/nvim-lspconfig",
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-buffer",
@@ -68,45 +83,78 @@ return require("packer").startup(function(use)
             "L3MON4D3/LuaSnip",
             "saadparwaiz1/cmp_luasnip"
         }
-    })
-    use "mfussenegger/nvim-jdtls"
+    },
+    {
+        "mfussenegger/nvim-jdtls"
+    },
+    {
+        "onsails/lspkind.nvim"
+    },
 
     -- Debugging
-    use({ "rcarriga/nvim-dap-ui",
-        requires = { "mfussenegger/nvim-dap" },
+    {
+        "rcarriga/nvim-dap-ui",
+        dependencies = {
+            "mfussenegger/nvim-dap",
+            "nvim-neotest/nvim-nio",
+        },
         config = function() require("plugins.dapuiconfig") end
-    })
-    use "theHamsta/nvim-dap-virtual-text"
-    use "nvim-telescope/telescope-dap.nvim"
+    },
+    {
+        "theHamsta/nvim-dap-virtual-text"
+    },
+    {
+        "nvim-telescope/telescope-dap.nvim"
+    },
+
+    -- Database
+    {
+        'kristijanhusak/vim-dadbod-ui',
+        dependencies = {
+            { 'tpope/vim-dadbod', lazy = true },
+            { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true },
+        },
+        cmd = {
+            'DBUI',
+            'DBUIToggle',
+            'DBUIAddConnection',
+            'DBUIFindBuffer',
+        },
+        init = function()
+            vim.g.db_ui_use_nerd_fonts = 1
+        end,
+    },
 
     -- Statusline
-    use({ "hoob3rt/lualine.nvim",
+    {
+        "hoob3rt/lualine.nvim",
         config = function() require("plugins.lualine") end,
-    })
+    },
 
     -- NvimTree
-    use({ "kyazdani42/nvim-tree.lua",
-        requires = { "kyazdani42/nvim-web-devicons" },
+    {
+        "kyazdani42/nvim-tree.lua",
+        dependencies = { "kyazdani42/nvim-web-devicons" },
         config = function() require("plugins.nvimtree") end,
-    })
+    },
 
     -- Treesitter
-    use({ "nvim-treesitter/nvim-treesitter",
+    {
+        "nvim-treesitter/nvim-treesitter",
         config = function() require("plugins.treesitter") end,
-        run = ":TSUpdate"
-    })
-    use "nvim-treesitter/nvim-treesitter-context"
+    },
+    {
+        "nvim-treesitter/nvim-treesitter-context"
+    },
 
     -- Telescope
-    use({ "nvim-telescope/telescope.nvim",
-        requires = { "nvim-lua/plenary.nvim" },
+    {
+        "nvim-telescope/telescope.nvim",
+        dependencies = { "nvim-lua/plenary.nvim" },
         config = function() require("plugins.telescope") end,
-    })
-    use({ "nvim-telescope/telescope-fzf-native.nvim",
+    },
+    {
+        "nvim-telescope/telescope-fzf-native.nvim",
         run ="make",
-    })
-
-    if packer_bootstrap then
-    require("packer").sync()
-    end
-end)
+    }
+})

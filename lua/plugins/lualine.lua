@@ -2,7 +2,7 @@ local non_language_ft = {"fugitive", "startify"}
 
 require("lualine").setup({
     options = {
-        theme = "tokyonight",
+        theme = "vscode",
         component_separators = {left = "", right = ""},
         section_separators = {left = "", right = ""},
     },

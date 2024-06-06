@@ -10,7 +10,6 @@ vim.wo.number            = true
 vim.wo.relativenumber    = true
 vim.wo.signcolumn        = "yes"
 vim.wo.cursorline        = false
-vim.o.syntax            = true
 
 -- Behaviour
 vim.o.hlsearch           = false
@@ -26,7 +25,7 @@ vim.o.splitbelow         = true
 vim.o.splitright         = true
 vim.o.scrolloff          = 12
 vim.o.sidescrolloff      = 8
-vim.o.mouse              = false
+vim.o.mouse             = ""
 
 -- Vim specific
 vim.o.hidden             = true
