@@ -35,8 +35,11 @@ require("lazy").setup({
     },
 
     -- Themes
+    { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
     {
         "Mofiqul/vscode.nvim",
+        lazy = false,
+        priority = 1000,
         config = function() require("themes") end
     },
 
@@ -79,7 +82,11 @@ require("lazy").setup({
             "hrsh7th/cmp-path",
             "hrsh7th/cmp-cmdline",
             "hrsh7th/nvim-cmp",
-            "L3MON4D3/LuaSnip",
+            {
+                "L3MON4D3/LuaSnip",
+                version = "v2.*",
+                build = "make install_jsregexp",
+            },
             "saadparwaiz1/cmp_luasnip"
         }
     },
@@ -149,11 +156,14 @@ require("lazy").setup({
     -- Telescope
     {
         "nvim-telescope/telescope.nvim",
-        dependencies = { "nvim-lua/plenary.nvim" },
+        branch = "0.1.x",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            {
+                'nvim-telescope/telescope-fzf-native.nvim',
+                build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
+            },
+        },
         config = function() require("plugins.telescope") end,
     },
-    {
-        "nvim-telescope/telescope-fzf-native.nvim",
-        run ="make",
-    }
 })
