@@ -1,13 +1,13 @@
 local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
 
-local workspace_dir = "/home/jonne/.jdtlsworkspaces/" .. project_name
+local workspace_dir = "/home/jonnelehtonen/.jdtlsworkspaces/" .. project_name
 
 local config = {
     cmd = {
         "java",
         "-Declipse.application=org.eclipse.jdt.ls.core.id1",
         "-Dosgi.bundles.defaultStartLevel=4",
-        "-javaagent:/home/jonne/lsp/jdtls/lombok.jar",
+        "-javaagent:/home/jonnelehtonen/lsp/jdtls/lombok.jar",
         "-Declipse.product=org.eclipse.jdt.ls.core.product",
         "-Dlog.protocol=true",
         "-Dlog.level=ALL",
@@ -15,8 +15,8 @@ local config = {
         "--add-modules=ALL-SYSTEM",
         "--add-opens", "java.base/java.util=ALL-UNNAMED",
         "--add-opens", "java.base/java.lang=ALL-UNNAMED",
-        "-jar", "/home/jonne/lsp/jdtls/plugins/org.eclipse.equinox.launcher_1.6.500.v20230717-2134.jar",
-        "-configuration", "/home/jonne/lsp/jdtls/config_linux",
+        "-jar", "/home/jonnelehtonen/lsp/jdtls/plugins/org.eclipse.equinox.launcher_1.6.500.v20230717-2134.jar",
+        "-configuration", "/home/jonnelehtonen/lsp/jdtls/config_linux",
         "-data", workspace_dir,
     },
     root_dir = require("jdtls.setup").find_root({".git", "mvnw", "gradlew"}),
@@ -29,10 +29,10 @@ local config = {
 }
 
 local bundles = {
-    vim.fn.glob("/home/jonne/lsp/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar"),
+    vim.fn.glob("/home/jonnelehtonen/lsp/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar"),
 };
 
-vim.list_extend(bundles, vim.split(vim.fn.glob("/home/jonne/lsp/vscode-java-test/server/*.jar"), "\n"))
+vim.list_extend(bundles, vim.split(vim.fn.glob("/home/jonnelehtonen/lsp/vscode-java-test/server/*.jar"), "\n"))
     config["init_options"] = {
     bundles = bundles;
 }
